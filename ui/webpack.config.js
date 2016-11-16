@@ -33,10 +33,14 @@ module.exports = {
         libraryTarget: 'umd',
         sourceMapFilename: '[file]_[hash].map'
     },
+    resolve: {
+        extensions: ['','.js','.elm']
+    },
     module: {
         loaders: [
             {test: /\.css$/, loader: 'style-loader!css-loader'},
             {test: /\.html$/, loader: 'html-loader'},
+            {test: /\.elm$/, loader: 'elm-webpack?debug'},
             {test: /\.scss$/, loader: 'style-loader!css-loader!postcss-loader!sass-loader'}
         ]
     },

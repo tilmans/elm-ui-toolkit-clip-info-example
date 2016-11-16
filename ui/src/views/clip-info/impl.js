@@ -6,6 +6,7 @@
     
 var coAPI = require('avid-mcux-common-object'),
     activeAsset = require('avid-mcux-active-asset'),
+    elm = require("./ClipInfo"),
     jq = require("jquery"),
     hID = "",
     hType = "interplay";

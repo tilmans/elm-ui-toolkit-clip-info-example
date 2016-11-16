@@ -32,6 +32,7 @@
     "chai": "3.x",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.25.0",
+    "elm-webpack-loader": "^3.0.3",
     "fs-sync": "^1.0.3",
     "html-loader": "^0.4.3",
     "loader-html": "file:../modules/loader-html",
