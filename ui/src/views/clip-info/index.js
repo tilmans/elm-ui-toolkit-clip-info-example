@@ -3,7 +3,7 @@ var View = require('avid-mcux-view'),
 
 module.exports = {
     config: {
-        menuName: 'Clip Info',
+        menuName: 'Elm Clip Info',
         singleton: true,
         icon: "./resources/custom_icon.png"        
     },

@@ -7,10 +7,11 @@
 var coAPI = require('avid-mcux-common-object'),
     activeAsset = require('avid-mcux-active-asset'),
     elm = require("./ClipInfo"),
-    jq = require("jquery"),
+    app,
     hID = "",
     hType = "interplay";
 
+/*
 function printRelatives(data) {
     if (data.relatives == null) {
         jq("#result").html("No relatives.");
@@ -114,6 +115,7 @@ function resolve(co) {
         }
     });        
 }
+*/
 
 module.exports = {
     _onAssetChange: function(asset) {
@@ -121,6 +123,8 @@ module.exports = {
         if (!asset || !asset.commonObject) {
             return;
         }
+        
+        /*
         if (asset.commonObject.base.systemType !== "interplay") {            
             jq("#result").html("Only works with Interplay Assets");
             jq('#locations').html("Only works with Interplay Assets");
@@ -131,8 +135,20 @@ module.exports = {
         hID = asset.commonObject.base.systemID; // Track the system id here because CTMS
                                                 // currently returns system name, not ID
         resolve(asset.commonObject);
+        */
         
-        
+        var b = asset.commonObject.base;        
+        hID = b.systemID; // Track the system id here because CTMS
+                        // currently returns system name, not ID
+
+        if (app) {
+            app.ports.active.send({
+                systemType: b.systemType,
+                systemID: b.systemID,
+                assetType: b.type,
+                assetID: b.id
+            });            
+        }        
     },
     createElement: function () {
         var content = require('./resources/content.html');
@@ -144,6 +160,15 @@ module.exports = {
     },
     onRender: function () {
         activeAsset.addListener(this._onAssetChange.bind(this));
+        
+        app = elm.ClipInfo.embed(document.getElementById('elm-clip-info'));
+        app.ports.open.subscribe(function(asset) {
+            console.info("Open asset from ELM: "+asset);
+            coAPI.resolve(hType + ":" + hID + ":" + asset[0] + ":" + asset[1])
+            .then(function(object) {
+                activeAsset.set({commonObject:object});
+            });
+        });
     },
     onFocusLost: function () {},
     onFocusGained: function () {},

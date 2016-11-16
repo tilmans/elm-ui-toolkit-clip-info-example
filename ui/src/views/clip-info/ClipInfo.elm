@@ -87,14 +87,14 @@ drawRelation relation =
 
 drawRelatives : Model -> Html Msg
 drawRelatives model = 
-    fieldset [class "clipinfo-fieldset"] [
-        legend [class "clipinfo-fieldset-legend"]
+    fieldset [class "elm-clip-info-fieldset"] [
+        legend [class "elm-clip-info-fieldset-legend"]
             [text "Relatives"],
         case model.data of
             Nothing ->
                 div [] [ text "Has no relatives"]
             Just relatives ->
-                table [class "clipinfo-table"] [
+                table [class "elm-clip-info-table"] [
                     thead [] [
                         tr [] [
                             td [] [text "Name"],

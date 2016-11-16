@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fsSync = require('fs-sync');
 const fs = require('fs');
 
-const outputPath = path.resolve(__dirname, 'dist/clip-info-example');
+const outputPath = path.resolve(__dirname, 'dist/elm-clip-info');
 
 const packageJson = JSON.stringify({
         main: './index.js',
