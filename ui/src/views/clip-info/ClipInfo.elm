@@ -7,6 +7,7 @@ import Task exposing (Task)
 import Http exposing (Error)
 
 import HAL exposing (..)
+import Relatives exposing (..)
 import MediaInfo exposing (..)
 
 port open : (List String) -> Cmd msg
@@ -17,9 +18,11 @@ type Msg
     | ClickLink HALBase
     | RelationsLoaded (Result Http.Error HALRelations)
     | MediaInfoLoaded (Result Http.Error MediaInfoData)
+    {-}| FileLocationsLoaded (Result Http.Error FileLocationsData)-}
 
 type alias Model = 
     { data: Maybe (List HALAsset)
+    {-}, files: Maybe (List FileLocation)-}
     , asset: Maybe HALBase
     , error: Maybe String
     , loading: Bool

@@ -1,8 +1,7 @@
-module HAL exposing (loadRelations, HALBase, HALCommon, HALAsset, HALRelations) 
+module HAL exposing (..)
 
+import HAL exposing (..)
 import Json.Decode exposing (..)
-import Task exposing (Task)
-import Http
 
 type alias HALBase = 
     { systemID: String
@@ -32,14 +31,6 @@ type alias HALAsset =
     , common: HALCommon
     }
     
-loadRelations : String -> Http.Request HALRelations
-loadRelations asset =
-    let 
-        url = "/apis/avid.pam;version=0;realm=global/assets/"++ asset ++"/relatives"
-        debug = Debug.log "ELM: Load URL" url
-    in
-        Http.get url halRelationsDecoder
-    
 halBaseDecoder : Decoder HALBase
 halBaseDecoder = 
     map4 HALBase
@@ -65,10 +56,3 @@ halCommonDecoder =
         (field "startTC" string)
         (field "endTC" string)
         (field "durationTC" string)
-        
-halRelationsDecoder : Decoder HALRelations
-halRelationsDecoder =     
-    map2 HALRelations
-        (field "base" halBaseDecoder)
-        (maybe ( field "relatives" (list halAssetDecoder) ) ) {- Need to make this a maybe -}
-    
